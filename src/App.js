@@ -1,28 +1,87 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import Rofi from './components/Rofi';
+import Home from './components/Home';
 import './App.css';
 
+
 class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
-    );
-  }
+
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            rofi: undefined,
+            appName: ""
+        }
+        this.setAppName = this.setAppName.bind(this);
+    }
+
+    handleKeypress = event => {
+        if (event.ctrlKey) {
+
+            if (event.key === 'Enter') {
+                if (!this.state.rofi) {
+                    this.setState({
+                        rofi: true
+                    })
+                } else {
+                    this.setState({
+                        rofi: false
+                    })
+                    this.rootEvent.focus()
+                }
+            }
+
+        } else {
+            console.log({
+                key: event.key,
+                keyCode: event.keyCode,
+                altKey: event.altKey,
+                ctrlKey: event.ctrlKey,
+                metaKey: event.metaKey,
+                shiftKey: event.shiftKey
+            });
+        }
+    }
+
+    componentDidMount() {
+        this.rootEvent.focus();
+    }
+
+    // app name (component)
+    setAppName(name) {
+        this.setState({
+            appName: name
+        })
+    }
+
+    // rendering component
+    activateApp() {
+        switch(this.state.appName) {
+            case 'Home':
+                return <Home />
+            default:
+                return <h1>{this.state.appName} page is rendering</h1>
+        }
+    }
+
+
+    render() {
+        return (
+            <div
+                className="App"
+                ref={(root) => {this.rootEvent = root;}}
+                onKeyPress={this.handleKeypress}
+                tabIndex={-1}>
+
+                { this.state.rofi && <Rofi action={this.setAppName}/> }
+
+                { this.state.appName && this.activateApp() }
+
+            </div>
+        );
+    }
+
 }
 
 export default App;

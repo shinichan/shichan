@@ -1,0 +1,39 @@
+.rofi {
+    margin: 10;
+    line-height: 0px;
+    width: 400px;
+    top: 50%;
+    left: 50%;
+    border: 2px solid #000;
+    display: inline-block;
+    position: absolute;
+    background-color: #1c0027;
+    transform: translate(-50%, -50%);
+}
+
+input {
+    border: none;
+    width: 100%;
+    box-sizing: border-box;
+    font-family: 'Ryuku';
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+input::placeholder {
+    font-family: 'Ryuku';
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+p {
+    width: 100%;
+    color: #fff;
+    font-family: 'Ryuku';
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+p:first-child {
+    color: #05fff6;
+}
